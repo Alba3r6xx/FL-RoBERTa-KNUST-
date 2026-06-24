@@ -17,7 +17,7 @@ def train_logistic_regression(train_df: pd.DataFrame, test_df: pd.DataFrame, tex
     x_train = vectorizer.fit_transform(train_df[text_col])
     x_test = vectorizer.transform(test_df[text_col])
 
-    clf = LogisticRegression(max_iter=2000)
+    clf = LogisticRegression(max_iter=cfg.logistic_max_iter)
     clf.fit(x_train, train_df[label_col])
     preds = clf.predict(x_test)
 

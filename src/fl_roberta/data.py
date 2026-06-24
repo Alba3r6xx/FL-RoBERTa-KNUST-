@@ -33,7 +33,7 @@ def stratified_split(
     val_size: float = 0.1,
     test_size: float = 0.2,
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    if round(train_size + val_size + test_size, 4) != 1.0:
+    if abs((train_size + val_size + test_size) - 1.0) > 1e-9:
         raise ValueError("train_size + val_size + test_size must equal 1.0")
 
     train, temp = train_test_split(frame, test_size=(1 - train_size), random_state=seed, stratify=frame[label_col])

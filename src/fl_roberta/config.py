@@ -22,3 +22,4 @@ class ExperimentConfig:
     focal_gamma: float = 2.0
 
     tfidf_max_features: int = 10_000
+    logistic_max_iter: int = 2000
