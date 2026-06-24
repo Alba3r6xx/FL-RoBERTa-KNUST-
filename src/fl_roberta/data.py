@@ -14,14 +14,14 @@ def normalize_text(text: str) -> str:
     return text
 
 
-def token_count(text: str) -> int:
+def word_count(text: str) -> int:
     return len(text.split())
 
 
 def preprocess_frame(frame: pd.DataFrame, text_col: str, label_col: str, min_tokens: int = 20, max_tokens: int = 512) -> pd.DataFrame:
     processed = frame[[text_col, label_col]].copy()
     processed[text_col] = processed[text_col].map(normalize_text)
-    counts = processed[text_col].map(token_count)
+    counts = processed[text_col].map(word_count)
     return processed[(counts >= min_tokens) & (counts <= max_tokens)].reset_index(drop=True)
 
 
@@ -34,7 +34,7 @@ def stratified_split(
     test_size: float = 0.2,
 ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     split_sum = train_size + val_size + test_size
-    if abs(split_sum - 1.0) > 1e-9:
+    if abs(split_sum - 1.0) > 1e-6:
         raise ValueError(f"Split proportions must sum to 1.0 (got {split_sum}).")
 
     train, temp = train_test_split(frame, test_size=(1 - train_size), random_state=seed, stratify=frame[label_col])
