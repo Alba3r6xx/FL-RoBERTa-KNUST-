@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import re
-from typing import Tuple
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -32,7 +31,7 @@ def stratified_split(
     train_size: float = 0.7,
     val_size: float = 0.1,
     test_size: float = 0.2,
-) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     split_sum = train_size + val_size + test_size
     if abs(split_sum - 1.0) > 1e-6:
         raise ValueError(f"Split proportions must sum to 1.0 (got {split_sum}).")
