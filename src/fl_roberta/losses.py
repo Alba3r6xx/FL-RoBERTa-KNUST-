@@ -8,6 +8,8 @@ from torch import nn
 class FocalLoss(nn.Module):
     def __init__(self, alpha: float = 0.25, gamma: float = 2.0, reduction: str = "mean") -> None:
         super().__init__()
+        if reduction not in {"mean", "sum", "none"}:
+            raise ValueError("reduction must be one of: 'mean', 'sum', 'none'")
         self.alpha = alpha
         self.gamma = gamma
         self.reduction = reduction
